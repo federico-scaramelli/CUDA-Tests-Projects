@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClInclude Include="common.h" />
+    <ClInclude Include="time.h" />
+    <ClInclude Include="bmpUtil.h">
+      <Filter>Histogram</Filter>
+    </ClInclude>
+    <ClInclude Include="ImageStuff.h">
+      <Filter>Histogram</Filter>
+    </ClInclude>
+    <ClInclude Include="mqdb.h">
+      <Filter>mqdbProd</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="images">
+      <UniqueIdentifier>{c2e80c7c-5db0-4102-8ef1-25d64d37a044}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Histogram">
+      <UniqueIdentifier>{7065c86c-4fae-4a56-aabc-06073aa63b5e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="mqdbProd">
+      <UniqueIdentifier>{6eb52040-6eaa-4482-9c72-18cddc6c60e0}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\..\..\lab2\images\mandelbrot_jet.bmp">
+      <Filter>images</Filter>
+    </Image>
+    <Image Include="..\..\..\lab2\images\dog.bmp">
+      <Filter>images</Filter>
+    </Image>
+    <Image Include="..\..\..\lab2\images\julia_jet.bmp">
+      <Filter>images</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <CudaCompile Include="hist.cu">
+      <Filter>Histogram</Filter>
+    </CudaCompile>
+    <CudaCompile Include="mqdb_prod.cu">
+      <Filter>mqdbProd</Filter>
+    </CudaCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="ImageStuff.cpp">
+      <Filter>Histogram</Filter>
+    </ClCompile>
+    <ClCompile Include="mqdb.cpp">
+      <Filter>mqdbProd</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

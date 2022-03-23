@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CudaCompile Include="ImgFlip.cu">
+      <Filter>ImgFlip</Filter>
+    </CudaCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="ImgFlip">
+      <UniqueIdentifier>{39250b35-a7d3-4659-a6a4-a6aaef13a0e8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ImgFlip\images">
+      <UniqueIdentifier>{3a6aead9-48a9-4a08-b857-74e718bdb0e2}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="common.h">
+      <Filter>ImgFlip</Filter>
+    </ClInclude>
+    <ClInclude Include="time.h">
+      <Filter>ImgFlip</Filter>
+    </ClInclude>
+    <ClInclude Include="bmpUtil.h">
+      <Filter>ImgFlip</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\..\images\mandelbrot_jet.bmp">
+      <Filter>ImgFlip\images</Filter>
+    </Image>
+    <Image Include="..\..\images\dog.bmp">
+      <Filter>ImgFlip\images</Filter>
+    </Image>
+    <Image Include="..\..\images\julia_jet.bmp">
+      <Filter>ImgFlip\images</Filter>
+    </Image>
+  </ItemGroup>
+</Project>
