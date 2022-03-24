@@ -1,8 +1,8 @@
 
 #include "cuda_runtime.h"
 #include "device_launch_parameters.h"
+#include "common.h"
 #include "mqdb.h"
-#include "../Lab3/common.h"
 
 #define BLOCK_SIZE 16     // block size
 
@@ -33,18 +33,30 @@ __global__ void matProd(mqdb A, mqdb B, mqdb C, int n) {
 /*
  * Kernel for block sub-matrix product of mqdb
  */
-__global__ void mqdbBlockProd(mqdb A, mqdb B, mqdb C, int startBlockIndex) {
+__global__ void mqdbBlockProd(mqdb A, mqdb B, mqdb C, int n, uint blockNumber) {
 
 	// ## TODO ##
-	int blockSize = blockDim.x;
-	for (int i = 0; i < blockSize; i++) {
-		for (int k = 0; k < blockSize; k++) {
-			float val = 0;
-			for (int j = 0; j < blockSize; j++) {
-				val += A.elem[i * blockSize + j] * B.elem[j * blockSize + k];
-			}
-			C.elem[i * blockSize + k] = (float)val;
+	uint row = blockIdx.y * blockDim.y + threadIdx.y;
+	uint col = blockIdx.x * blockDim.x + threadIdx.x;
+
+	//printf("Block Idx.x: %d; Block Idx.y: %d; \n", blockIdx.x, blockIdx.y);
+
+	int startBlockIndex = 0;
+	for (int i = 0; i < blockNumber; i++) {
+		startBlockIndex += A.blkSize[i] * n + A.blkSize[i];
+	}
+
+	//printf("Start index: %d\n",startBlockIndex);
+
+	// each thread computes an entry of the product matrix
+	if ((row < A.blkSize[blockNumber]) && (col < A.blkSize[blockNumber])) {
+		float val = 0;
+		for (int k = 0; k < A.blkSize[blockNumber]; k++) {
+			val += A.elem[startBlockIndex + row * n + k] * B.elem[startBlockIndex + k * n + col];
+			// printf("MatA[%d] * MatB[%d] = %5.2f\n", startBlockIndex + row * n + k, startBlockIndex + k * n + col, A.elem[startBlockIndex + row * n + k] * B.elem[startBlockIndex + k * n + col]);
 		}
+		// printf("AGGIORNO MatC[%d] = %5.2f\n", startBlockIndex + row * n + col, val);
+		C.elem[startBlockIndex + row * n + col] = val;
 	}
 }
 
@@ -68,7 +80,7 @@ void testKernelsMQDB(uint n, uint k, struct tms* times) {
 
 	ulong nBytes = n * n * sizeof(float);
 	ulong kBytes = k * sizeof(uint);
-	printf("Memory size required = %.1f (MB)\n", (float)nBytes / (1024.0 * 1024.0));
+	printf("Memory size required = %.1f (MB)\n", static_cast<float>(nBytes) / (1024.0 * 1024.0));
 
 	// malloc and copy on device memory
 	d_A.nBlocks = A.nBlocks;
@@ -103,7 +115,7 @@ void testKernelsMQDB(uint n, uint k, struct tms* times) {
 	dim3 block(BLOCK_SIZE, BLOCK_SIZE);
 	dim3 grid((n + block.x - 1) / block.x, (n + block.y - 1) / block.y);
 	start = seconds();
-	matProd << <grid, block >> > (d_A, d_B, d_C, k);
+	matProd <<<grid, block >>> (d_A, d_B, d_C, n);
 	CHECK(cudaDeviceSynchronize());
 	double GPUtime1 = seconds() - start;
 	printf("   elapsed time:                %.2f (sec)\n", GPUtime1);
@@ -119,19 +131,12 @@ void testKernelsMQDB(uint n, uint k, struct tms* times) {
 	printf("Kernel MQDB product...\n");
 
 	// TODO
-	int size = 0;
-	for (int i = 0; i < d_A.nBlocks; i++) {
-		size += d_A.blkSize[i];
-	}
-
 	start = seconds();
 
-	int startBlockIndex = 0;
-	for (int i = 0; i < d_A.nBlocks; i++) {
-		block = d_A.blkSize[i];
-		grid = block;
-		mqdbBlockProd << <grid, block >> > (d_A, d_B, d_C, startBlockIndex);
-		startBlockIndex += block.x * size + block.x;
+	for (uint i = 0; i < A.nBlocks; i++) {
+		grid.x = (A.blkSize[i] + block.x - 1) / block.x;
+		grid.y = (A.blkSize[i] + block.y - 1) / block.y;
+		mqdbBlockProd <<<grid, block >>> (d_A, d_B, d_C, n, i);
 	}
 	CHECK(cudaDeviceSynchronize());
 	double GPUtime2 = seconds() - start;
@@ -141,6 +146,8 @@ void testKernelsMQDB(uint n, uint k, struct tms* times) {
 	// copy the array 'C' back from the GPU to the CPU
 	CHECK(cudaMemcpy(C2.elem, d_C.elem, nBytes, cudaMemcpyDeviceToHost));
 	CHECK(cudaMemset(d_C.elem, 0.0, nBytes));
+	// mqdbDisplay(&C);
+	// mqdbDisplay(&C2);
 	checkResult(C, C2);
 
 	CHECK(cudaFree(d_A.elem));
@@ -162,15 +169,18 @@ void testKernelsMQDB(uint n, uint k, struct tms* times) {
  * main function
  */
 int main(int argc, char* argv[]) {
-	uint n = 2 * 1024;      // matrix size
-	const uint min_k = 30;       // min num of blocks
+	uint n = 2*1024;      // matrix size
+	const uint min_k = 30;       // max num of blocks
 	const uint max_k = 30;       // max num of blocks
+	// uint n = 30;      // matrix size
+	// const uint min_k = 2;       // max num of blocks
+	// const uint max_k = 2;       // max num of blocks
 
 	struct tms times[max_k - min_k + 1];
 
 	// multiple tests on kernels
 	for (uint k = min_k; k <= max_k; k++) {
-		printf("\n*****   k = %d --- (avg block size = %f)\n", k, (float)n / k);
+		printf("\n*****   k = %d --- (avg block size = %f)\n", k, static_cast<float>(n) / k);
 		testKernelsMQDB(n, k, &times[k - min_k]);
 	}
 
