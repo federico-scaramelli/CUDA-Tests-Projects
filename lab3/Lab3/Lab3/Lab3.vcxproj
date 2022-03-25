@@ -13,6 +13,7 @@
   <PropertyGroup Label="Globals">
     <ProjectGuid>{63F282D9-2B11-4B74-9874-68886320DA02}</ProjectGuid>
     <RootNamespace>Lab3</RootNamespace>
+    <ProjectName>MQDBProd</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
