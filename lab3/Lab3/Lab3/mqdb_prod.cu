@@ -1,4 +1,3 @@
-
 #include "cuda_runtime.h"
 #include "device_launch_parameters.h"
 #include "common.h"
@@ -13,9 +12,7 @@ struct tms {
 	float density;
 };
 
-/*
- * Kernel for standard (naive) matrix product
- */
+
 __global__ void matProd(mqdb A, mqdb B, mqdb C, int n) {
 	// row & col indexes
 	int row = blockIdx.y * blockDim.y + threadIdx.y;
@@ -30,12 +27,10 @@ __global__ void matProd(mqdb A, mqdb B, mqdb C, int n) {
 	}
 }
 
-/*
- * Kernel for block sub-matrix product of mqdb
- */
+
 __global__ void mqdbBlockProd(mqdb A, mqdb B, mqdb C, int n, uint blockNumber) {
 
-	// ## TODO ##
+	// TODO
 	uint row = blockIdx.y * blockDim.y + threadIdx.y;
 	uint col = blockIdx.x * blockDim.x + threadIdx.x;
 
@@ -60,9 +55,7 @@ __global__ void mqdbBlockProd(mqdb A, mqdb B, mqdb C, int n, uint blockNumber) {
 	}
 }
 
-/*
- * Test on MQDB kernels
- */
+
 void testKernelsMQDB(uint n, uint k, struct tms* times) {
 
 	// mqdb host matrices
@@ -99,18 +92,16 @@ void testKernelsMQDB(uint n, uint k, struct tms* times) {
 	CHECK(cudaMalloc((void**)&d_C.elem, nBytes));
 	CHECK(cudaMemset(d_C.elem, 0.0, nBytes));
 
-	/***********************************************************/
-	/*                    CPU MQDB product                     */
-	/***********************************************************/
+
+	//                    CPU MQDB product
 	printf("CPU MQDB product...\n");
 	double start = seconds();
 	mqdbProd(A, B, C);
 	double CPUTime = seconds() - start;
 	printf("   CPU elapsed time: %.5f (sec)\n\n", CPUTime);
 
-	/***********************************************************/
-	/*                     GPU mat product                     */
-	/***********************************************************/
+
+	//                     GPU mat product 
 	printf("Kernel (naive) mat product...\n");
 	dim3 block(BLOCK_SIZE, BLOCK_SIZE);
 	dim3 grid((n + block.x - 1) / block.x, (n + block.y - 1) / block.y);
@@ -124,10 +115,8 @@ void testKernelsMQDB(uint n, uint k, struct tms* times) {
 	CHECK(cudaMemset(d_C.elem, 0.0, nBytes));
 	checkResult(C, C1);
 	//	mqdbDisplay(C1);
-
-	/***********************************************************/
-	/*                     GPU MQDB product                    */
-	/***********************************************************/
+	
+	//                     GPU MQDB product
 	printf("Kernel MQDB product...\n");
 
 	// TODO
@@ -165,9 +154,6 @@ void testKernelsMQDB(uint n, uint k, struct tms* times) {
 	times->density = den / (n * n);
 }
 
-/*
- * main function
- */
 int main(int argc, char* argv[]) {
 	uint n = 2*1024;      // matrix size
 	const uint min_k = 30;       // max num of blocks

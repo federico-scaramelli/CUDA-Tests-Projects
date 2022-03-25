@@ -2,22 +2,21 @@
 #include "device_launch_parameters.h"
 
 #include <stdio.h>
-#include <time.h>
 #include <limits.h>
 
 #include "ImageStuff.h"
 #include "bmpUtil.h"
-#include "common.h"
+#include "../Lab3/common.h"
 
 __global__ void histogramBMP(uint* hist, const pel* imgSrc, const uint w, const uint h) {
-	
+
 	uint threadIndex = blockIdx.x * blockDim.x + threadIdx.x;
-	
+
 	if (threadIndex >= w * h)
 		return;
 
 	uint blockPerRow = (w + blockDim.x - 1) / blockDim.x;
-	
+
 	uint row = blockIdx.x / blockPerRow;
 	uint col = threadIndex - row * w;
 
@@ -98,7 +97,7 @@ int main(int argc, char** argv) {
 	start = seconds();   // start time
 
 	// TODO 
-	histogramBMP<<<dimGrid, dimBlock>>>(binsRGB_GPU, imgBMP_GPU, WIDTH, HEIGHT);
+	histogramBMP << <dimGrid, dimBlock >> > (binsRGB_GPU, imgBMP_GPU, WIDTH, HEIGHT);
 
 	CHECK(cudaDeviceSynchronize());
 	stop = seconds();   // elapsed time
@@ -121,7 +120,7 @@ int main(int argc, char** argv) {
 
 	return (EXIT_SUCCESS);
 }
- 
+
 
 pel* ReadBMPlin(char* fn) {
 	static pel* Img;

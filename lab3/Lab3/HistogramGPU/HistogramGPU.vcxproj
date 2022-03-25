@@ -11,8 +11,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{63F282D9-2B11-4B74-9874-68886320DA02}</ProjectGuid>
-    <RootNamespace>Lab3</RootNamespace>
+    <ProjectGuid>{FBD3964C-78BF-45DD-8D20-5EB7CBCB461F}</ProjectGuid>
+    <RootNamespace>HistogramGPU</RootNamespace>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
@@ -77,15 +77,17 @@
     </CudaCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <CudaCompile Include="mqdb_prod.cu" />
+    <CudaCompile Include="histogram.cu" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="common.h" />
-    <ClInclude Include="mqdb.h" />
-    <ClInclude Include="time.h" />
+    <ClInclude Include="bmpUtil.h" />
+    <ClInclude Include="ImageStuff.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="mqdb.cpp" />
+    <ClCompile Include="ImageStuff.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\..\..\lab2\images\dog.bmp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
