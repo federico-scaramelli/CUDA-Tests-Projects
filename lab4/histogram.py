@@ -1,5 +1,4 @@
 from numba import cuda
-from numba.types import uint16
 import numpy as np
 from PIL import Image
 import matplotlib.pyplot as plt
