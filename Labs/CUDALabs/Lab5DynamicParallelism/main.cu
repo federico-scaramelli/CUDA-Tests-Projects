@@ -119,6 +119,11 @@ void testKernelsMQDB(uint n, uint k, struct tms* times) {
 	for (uint j = 0; j < k; j++)
 		den += A.blkSize[j] * A.blkSize[j];
 	times->density = den / (n * n);
+
+	free(A.elem);
+	free(B.elem);
+	free(C.elem);
+	free(C1.elem);
 }
 
 /*

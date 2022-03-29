@@ -1,8 +1,7 @@
 ﻿
 #include "cuda_runtime.h"
 #include "device_launch_parameters.h"
-//#include "main.cu"
-#include "G:/Progetti/CUDA/lab3/Lab3/Lab3/common.h"
+#include "../Utils/common.h"
 
 /*
  *  Device function: block parallel reduction based on warp unrolling

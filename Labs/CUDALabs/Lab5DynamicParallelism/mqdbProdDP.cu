@@ -30,14 +30,36 @@ __global__ void mqdbBlockProd(mqdb A, mqdb B, mqdb C, uint sdim, uint d, uint n)
  */
 __global__ void mqdbProdDP1(mqdb A, mqdb B, mqdb C, uint k, uint n) {
 
-	// TODO
+	uint offset = 0;
+	dim3 block(BLOCK_SIZE, BLOCK_SIZE);
+	dim3 grid((n + block.x - 1) / block.x, (n + block.y - 1) / block.y);
+	
+	for(int i = 0; i < k; i++)
+	{
+		uint submatrixDim = A.blkSize[i];
+		//dim3 grid((submatrixDim + block.x - 1) / block.x, (submatrixDim + block.y - 1) / block.y);
+
+		mqdbBlockProd <<<grid,block>>> (A, B, C, offset, submatrixDim, n);
+
+		offset += submatrixDim;
+	}
 }
 
 /*
  * Kernel for block sub-matrix product of mqdb: parent grid(k)
  */
 __global__ void mqdbProdDPk(mqdb A, mqdb B, mqdb C, uint n) {
+	
+	uint submatrixDim = A.blkSize[threadIdx.x];
 
-	// TODO
+	dim3 block(BLOCK_SIZE, BLOCK_SIZE);
+	dim3 grid((submatrixDim + block.x - 1) / block.x, (submatrixDim + block.y - 1) / block.y);
 
+	uint offset = 0;
+	for(int i = 0; i < threadIdx.x; i++)
+	{
+		offset += A.blkSize[i];
+	}
+
+	mqdbBlockProd << <grid, block >> > (A, B, C, offset, submatrixDim, n);
 }

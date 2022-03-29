@@ -155,9 +155,9 @@ void testKernelsMQDB(uint n, uint k, struct tms* times) {
 }
 
 int main(int argc, char* argv[]) {
-	uint n = 2 * 1024;      // matrix size
-	const uint min_k = 30;       // max num of blocks
-	const uint max_k = 30;       // max num of blocks
+	uint n = 8 * 1024;      // matrix size
+	const uint min_k = 20;       // max num of blocks
+	const uint max_k = 20;       // max num of blocks
 	// uint n = 30;      // matrix size
 	// const uint min_k = 2;       // max num of blocks
 	// const uint max_k = 2;       // max num of blocks
