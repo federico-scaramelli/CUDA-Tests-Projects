@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CudaCompile Include="mqdbProd.cu" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Riferimento esterno">
+      <UniqueIdentifier>{70708789-d29a-43b3-b53a-020c125655b6}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\Utils\mqdb\mqdb.cpp">
+      <Filter>Riferimento esterno</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

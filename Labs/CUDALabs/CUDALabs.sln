@@ -1,0 +1,83 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.32228.343
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Utils", "Utils", "{7B8EEE58-9695-40A7-ABA0-AAE955AE35AE}"
+	ProjectSection(SolutionItems) = preProject
+		Utils\common.h = Utils\common.h
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BMP", "BMP", "{A1544A75-B817-4135-816B-46DC8E3F7515}"
+	ProjectSection(SolutionItems) = preProject
+		Utils\bmp\bmpUtil.h = Utils\bmp\bmpUtil.h
+		Utils\bmp\ImageStuff.cpp = Utils\bmp\ImageStuff.cpp
+		Utils\bmp\ImageStuff.h = Utils\bmp\ImageStuff.h
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MQDB", "MQDB", "{FA4528BD-7455-40EE-AF8A-9DDCEEEBEBBF}"
+	ProjectSection(SolutionItems) = preProject
+		Utils\mqdb\mqdb.cpp = Utils\mqdb\mqdb.cpp
+		Utils\mqdb\mqdb.h = Utils\mqdb\mqdb.h
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Lab2ImageFlip", "Lab2ImageFlip\Lab2ImageFlip.vcxproj", "{3AFCA7F2-25CB-4EE7-9EB6-B322CDEE0B6F}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Lab2Fibonacci", "Lab2Fibonacci\Lab2Fibonacci.vcxproj", "{61390DCA-9A8E-4095-AED6-87D90365DD79}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Images", "Images", "{12903EED-6C45-43D7-A4CB-F789815BA992}"
+	ProjectSection(SolutionItems) = preProject
+		Utils\images\dog.bmp = Utils\images\dog.bmp
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Lab3Histogram", "Lab3Histogram\Lab3Histogram.vcxproj", "{3844A515-3E1E-41F2-9307-3C5FDD77E1FD}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Lab3MQDB", "Lab3MQDB\Lab3MQDB.vcxproj", "{DA486128-12F6-432F-BA9D-A026EB1082DE}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Lab5Unroll", "Lab5Unroll\Lab5Unroll.vcxproj", "{0C653652-DC0D-4EA8-8306-200C4E4973BF}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Lab5DynamicParallelism", "Lab5DynamicParallelism\Lab5DynamicParallelism.vcxproj", "{85998ED4-C264-466F-BDD9-D297A0F21FAD}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3AFCA7F2-25CB-4EE7-9EB6-B322CDEE0B6F}.Debug|x64.ActiveCfg = Debug|x64
+		{3AFCA7F2-25CB-4EE7-9EB6-B322CDEE0B6F}.Debug|x64.Build.0 = Debug|x64
+		{3AFCA7F2-25CB-4EE7-9EB6-B322CDEE0B6F}.Release|x64.ActiveCfg = Release|x64
+		{3AFCA7F2-25CB-4EE7-9EB6-B322CDEE0B6F}.Release|x64.Build.0 = Release|x64
+		{61390DCA-9A8E-4095-AED6-87D90365DD79}.Debug|x64.ActiveCfg = Debug|x64
+		{61390DCA-9A8E-4095-AED6-87D90365DD79}.Debug|x64.Build.0 = Debug|x64
+		{61390DCA-9A8E-4095-AED6-87D90365DD79}.Release|x64.ActiveCfg = Release|x64
+		{61390DCA-9A8E-4095-AED6-87D90365DD79}.Release|x64.Build.0 = Release|x64
+		{3844A515-3E1E-41F2-9307-3C5FDD77E1FD}.Debug|x64.ActiveCfg = Debug|x64
+		{3844A515-3E1E-41F2-9307-3C5FDD77E1FD}.Debug|x64.Build.0 = Debug|x64
+		{3844A515-3E1E-41F2-9307-3C5FDD77E1FD}.Release|x64.ActiveCfg = Release|x64
+		{3844A515-3E1E-41F2-9307-3C5FDD77E1FD}.Release|x64.Build.0 = Release|x64
+		{DA486128-12F6-432F-BA9D-A026EB1082DE}.Debug|x64.ActiveCfg = Debug|x64
+		{DA486128-12F6-432F-BA9D-A026EB1082DE}.Debug|x64.Build.0 = Debug|x64
+		{DA486128-12F6-432F-BA9D-A026EB1082DE}.Release|x64.ActiveCfg = Release|x64
+		{DA486128-12F6-432F-BA9D-A026EB1082DE}.Release|x64.Build.0 = Release|x64
+		{0C653652-DC0D-4EA8-8306-200C4E4973BF}.Debug|x64.ActiveCfg = Debug|x64
+		{0C653652-DC0D-4EA8-8306-200C4E4973BF}.Debug|x64.Build.0 = Debug|x64
+		{0C653652-DC0D-4EA8-8306-200C4E4973BF}.Release|x64.ActiveCfg = Release|x64
+		{0C653652-DC0D-4EA8-8306-200C4E4973BF}.Release|x64.Build.0 = Release|x64
+		{85998ED4-C264-466F-BDD9-D297A0F21FAD}.Debug|x64.ActiveCfg = Debug|x64
+		{85998ED4-C264-466F-BDD9-D297A0F21FAD}.Debug|x64.Build.0 = Debug|x64
+		{85998ED4-C264-466F-BDD9-D297A0F21FAD}.Release|x64.ActiveCfg = Release|x64
+		{85998ED4-C264-466F-BDD9-D297A0F21FAD}.Release|x64.Build.0 = Release|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{A1544A75-B817-4135-816B-46DC8E3F7515} = {7B8EEE58-9695-40A7-ABA0-AAE955AE35AE}
+		{FA4528BD-7455-40EE-AF8A-9DDCEEEBEBBF} = {7B8EEE58-9695-40A7-ABA0-AAE955AE35AE}
+		{12903EED-6C45-43D7-A4CB-F789815BA992} = {7B8EEE58-9695-40A7-ABA0-AAE955AE35AE}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C6D8C3DC-9A2C-446D-A0FA-D9639D8FCF24}
+	EndGlobalSection
+EndGlobal
