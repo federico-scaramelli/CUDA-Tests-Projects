@@ -66,6 +66,28 @@
     }                                                                          \
 }
 
+// It prints the linear array of the given size; for debugging purposes.
+inline void printLinearArray(int* array, int size) {
+    printf("[");
+    for (int i = 0; i < size; i++) {
+        if (i != 0) printf(", ");
+        printf("%d", array[i]);
+    }
+    printf("]");
+}
+
+// It prints the square matrix of the given edge length; for debugging purposes.
+inline void printSquareMatrix(float* matrix, int matrixEdge) {
+    for (int row = 0; row < matrixEdge; row++) {
+        for (int col = 0; col < matrixEdge; col++) {
+            int index = row * matrixEdge + col;
+            if (col != 0) printf(" ");
+            printf("%.2f", matrix[index]);
+        }
+        if (row != matrixEdge - 1) printf("\n");
+    }
+}
+
 // inline double seconds() {
 //     struct timeval tp;
 //     int i = gettimeofday(&tp);

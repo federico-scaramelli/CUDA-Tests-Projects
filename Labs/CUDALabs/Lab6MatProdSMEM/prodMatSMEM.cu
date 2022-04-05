@@ -11,6 +11,9 @@
 #define N 1024
 #define P 1024
 #define M 1024
+/*#define N 16
+#define P 16
+#define M 16*/
 
 #define BLOCK_SIZE 16
 
@@ -57,7 +60,37 @@ __global__ void matProdSMEMstatic(float* A, float* B, float* C) {
  */
 __global__ void matProdSMEMdynamic(float* A, float* B, float* C, const uint SMEMsize) {
 
+	// SMEMsize = dimensione per due matrici (2*blocksize*blocksize) linearizzate
+
 	// TODO
+	int row = blockIdx.y * blockDim.y + threadIdx.y;
+	int col = blockIdx.x * blockDim.x + threadIdx.x;
+
+	extern __shared__ float matrices[];
+	float* A_subBlock = matrices;
+	float* B_subBlock = &matrices[blockDim.x * blockDim.x];
+
+	float partialSum = 0.0;
+
+	for (int i = 0; i < (P + blockDim.x - 1) / blockDim.x; i++) {
+		int c = i * blockDim.x + threadIdx.x;
+		int r = i * blockDim.x + threadIdx.y;
+
+		A_subBlock[IDX(threadIdx.y, threadIdx.x, blockDim.x)] = A[IDX(row, c, P)];
+		B_subBlock[IDX(threadIdx.y, threadIdx.x, blockDim.x)] = B[IDX(r, col, M)];
+
+		__syncthreads();
+
+		for (int j = 0; j < blockDim.x; j++) {
+			partialSum += A_subBlock[IDX(threadIdx.y, j, blockDim.x)] * B_subBlock[IDX(j, threadIdx.x, blockDim.x)];
+		}
+
+		__syncthreads();
+	}
+
+	if (row < N && col < M) {
+		C[IDX(row, col, M)] = partialSum;
+	}
 
 }
 
@@ -202,6 +235,8 @@ int main(void) {
 
 	// try with various SMEM sizes
 	uint sizes[] = { 8,16,32 };
+	//uint sizes[] = { 8,16};
+	//printSquareMatrix(C, M);
 	for (int i = 0; i < 3; i++) {
 		uint blockSize = sizes[i];
 		block.x = blockSize;
@@ -218,6 +253,8 @@ int main(void) {
 		// copy the array 'C' back from the GPU to the CPU
 		CHECK(cudaMemcpy(C1, dev_C, Csize, cudaMemcpyDeviceToHost));
 		checkResult(C, C1);
+		//printf("\n\n");
+		//printSquareMatrix(C1, M);
 	}
 
 	// free the memory allocated on the GPU
