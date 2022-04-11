@@ -40,6 +40,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Lab5DynamicParallelism", "L
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Lab6MatProdSMEM", "Lab6MatProdSMEM\Lab6MatProdSMEM.vcxproj", "{1E517247-4144-48BB-BB5F-D0789D3B37BF}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Lab6Convolution1D2D", "Lab6Convolution1D2D\Lab6Convolution1D2D.vcxproj", "{E3CF09B4-E44E-4EC2-A2B1-5FA3CE923721}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -74,6 +76,10 @@ Global
 		{1E517247-4144-48BB-BB5F-D0789D3B37BF}.Debug|x64.Build.0 = Debug|x64
 		{1E517247-4144-48BB-BB5F-D0789D3B37BF}.Release|x64.ActiveCfg = Release|x64
 		{1E517247-4144-48BB-BB5F-D0789D3B37BF}.Release|x64.Build.0 = Release|x64
+		{E3CF09B4-E44E-4EC2-A2B1-5FA3CE923721}.Debug|x64.ActiveCfg = Debug|x64
+		{E3CF09B4-E44E-4EC2-A2B1-5FA3CE923721}.Debug|x64.Build.0 = Debug|x64
+		{E3CF09B4-E44E-4EC2-A2B1-5FA3CE923721}.Release|x64.ActiveCfg = Release|x64
+		{E3CF09B4-E44E-4EC2-A2B1-5FA3CE923721}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
